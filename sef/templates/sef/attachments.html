@@ -1,0 +1,76 @@
+{% load static %}
+<!doctype html>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="{% static "sef/css/attachments.css" %}">
+	<body>
+		<table>
+			<thead>
+				<tr>
+					<th colspan="8">Attachments for Application</th>
+				</tr>
+				<tr>
+					<th>Application ID</th>
+					<th>I-9 form</th>
+					<th>Identification</th>
+					<th>W4</th>
+					<th>Bar of Claims</th>
+					<th>Drug-free Workplace</th>
+					<th>Schedule</th>
+					<th>Work-study Amt</th>
+				</tr>
+			</thead>
+			<tbody>
+			<tr>
+			{% if attachment %}
+				<td id="app-id-cell"><a href="/sef/viewApplication/{{ attachment.application_fk_id }}">{{ attachment.application_fk_id }}</a></td>
+				{% if attachment.i9 %}
+					<td><img src="{% static 'sef/img/file1.png' %}"/></td>
+				{% else %}
+					<td></td>
+				{% endif %}
+				{% if attachment.identification %}
+					<td><img src="{% static 'sef/img/file1.png' %}"/></td>
+				{% else %}
+					<td></td>
+				{% endif %}
+				{% if attachment.w4  %}
+					<td><img src="{% static 'sef/img/file1.png' %}"/></td>
+				{% else %}
+					<td></td>
+				{% endif %}
+				{% if attachment.claims %}
+					<td><img src="{% static 'sef/img/file1.png' %}"/></td>
+				{% else %}
+					<td></td>
+				{% endif %}
+				{% if attachment.drug %}
+					<td><img src="{% static 'sef/img/file1.png' %}"/></td>
+				{% else %}
+					<td></td>
+				{% endif %}
+				{% if attachment.schedule %}
+					<td>
+						<a target="_blank" href='{{ attachment.schedule.url }}'>
+							<img height=20px width=20px src="{% static 'sef/img/file1.png' %}"/>
+						</a>
+					</td>
+				{% else %}
+					<td></td>
+				{% endif %}
+				{% if attachment.work_study %}
+					<td><img src="{% static 'sef/img/file1.png' %}"/></td>
+				{% else %}
+					<td></td>
+				{% endif %}
+			</tr>
+			{% else %}
+				<p>Sorry, no attachments uploaded yet</p>
+			{% endif %}
+			</tbody>
+		</table>
+
+		{% if error_msg %}
+			<p id='error-msg' hidden>{{ error_msg }}</p>
+		{% endif %}
+	</body>
+</html>

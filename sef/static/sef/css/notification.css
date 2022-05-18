@@ -1,0 +1,57 @@
+body {
+	margin: 0;
+	font-family: sans-serif;
+}
+
+#top-half {
+	display: flex;
+	justify-content: center;
+	height: 500px;
+	align-items: center;
+}
+
+#form-container {
+	margin: 0 auto;
+	width: 500px;
+	height: 200px;
+	border: 1px solid #c9c9c9;
+	box-sizing: border-box;
+	border-radius: 10px;
+	box-shadow: 5px 10px 15px 5px rgba(0,0,0,0.2);
+}
+
+form {
+	height: 100%;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+.input-line {
+	margin: 10px;
+}
+
+input[type="text"], input[type="email"] {
+	border: 1px solid #adadad;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+input[type="submit"] {
+	background: #892332;
+	border: 1px solid white;
+	border-radius: 10px;
+	padding: 15px;
+	color: white;
+	font-weight: bold;
+}
+
+input[type="submit"]:hover {
+	background: white;
+	border: 1px solid #892332;
+	color:#892332;
+}
+
+.center {
+	display: flex;
+	justify-content: center;
+}

@@ -1,0 +1,90 @@
+body {
+	font-family: sans-serif;
+	margin: 0 auto;
+	background-color: #f8f8f8;
+
+}
+
+#form-body {
+	margin: 30px auto;
+	padding: 10px;
+	/*
+	border: 1px solid #d2d1d1;
+	*/
+	border-radius: 5px;
+	width: 65%;
+	max-width: 900px;
+	box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+	padding-left: 80px;
+	background-color: white;
+}
+
+
+label {
+	font-size: 0.95rem;
+	margin: 5px;
+}
+
+input {
+	margin: 5px 0;
+	padding: 5px;
+	border: 1px solid #c3c3c3;
+	border-radius: 5px;
+}
+
+#app_id, #dept {
+	background-color: #dddddd;
+	color:#8b8b8b; 
+}
+
+#acceptance_checklist {
+	width: 75%;
+	margin: 0 auto;
+	/*
+	display: flex;
+	justify-content: space-around;
+	*/
+}
+
+h3 {
+	margin-bottom: 1px;
+}
+
+#error-message {
+	width: 100%;
+}
+
+#error-message p {
+	width: 50%;
+	margin: 0 auto;
+	color: red;
+}
+
+#date-employed p {
+	margin: 0;
+	font-size: 0.7rem;
+}
+
+canvas {
+	margin: 5px auto; 
+	border: 1px solid #cdcbcb;
+}
+
+#signature-container {
+	/*
+	position: relative;
+	top: -30px;
+	left: 100px;
+	*/
+}
+
+#signature-section {
+	display: flex;
+	align-items: end;
+}
+
+#signImg {
+	border-bottom: 1px solid black;
+}
+
+

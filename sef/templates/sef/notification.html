@@ -1,0 +1,46 @@
+{% load static %}
+<!doctype html>
+	<meta charset='utf-8'>
+	<link rel="stylesheet" type="text/css" href="{% static "sef/css/notification.css" %}">
+	<body>
+		{% if error_message %}
+		<div id="error-message">
+			<p>Error: {{ error_message }}</p>
+		</div>
+		{% endif %}
+		{% if success_message %}
+		<div id="success-message">
+			<p>{{ success_message }}</p>
+		</div>
+		{% endif %}
+
+		
+
+		<div id='top-half'>
+			<div id='form-container'>
+				<form action = "{% url 'notify' %}" method = "post">
+						<div class='input-line'>
+							<label for="student_id">RIC Student ID: </label>
+							<input type="text" id="student_id" name="student_id" size=7 minlength=7 maxlength=7 required>
+						</div>
+
+						<div class='input-line'>
+							<label for="student_email">Student E-mail: </label>
+							<input type="email" id="student_email" name="student_email" size=20 required>
+						</div>
+						
+						<div class='input-line'>
+							<label for="dept_code">Department code: </label>
+							<input type="text" id="dept_code" name="dept_code" size=3 required>
+						</div>
+
+						<div class='input-line center'>
+							<input type="submit" value = "Send Email">
+						</div>
+					{% csrf_token %}
+				</form>
+			</div>
+		</div>
+
+	</body>
+</html>

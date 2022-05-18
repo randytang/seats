@@ -1,0 +1,19 @@
+{% load static %}
+<!doctype html>
+	<meta charset='utf-8'>
+	<link rel="stylesheet" type="text/css" href="{% static "sef/css/employerform_result.css" %}">
+	<body>
+		{% if error %}
+			<p>{{ error }}</p>
+			{% if original_url %}
+				<a href="{{ original_url }}">Return to employer form></a>
+			{% endif %}
+		{% endif %}
+
+		{% if success %}
+			<p id='success-msg'>{{ success }}</p>
+			{% endif %}
+
+	</body>
+</html>
+

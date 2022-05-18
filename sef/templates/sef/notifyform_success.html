@@ -1,0 +1,21 @@
+{% load static %}
+<!doctype html>
+	<meta charset='utf-8'>
+	<link rel="stylesheet" type="text/css" href="{% static "sef/css/notifyform_success.css" %}">
+	<body>
+		{% if success_message %}
+			<p>{{ success_message }}</p>
+		{% endif %}
+
+		{% if url_for_student %}
+			<p>Link to fill out student section of SEF: <a href="{{ url_for_student }}">{{ url_for_student }}</a></p>
+		{% endif %}
+		{% if employer_url %}
+			<p>Link to fill out employer section of SEF: <a href="{{ employer_url }}">{{ employer_url }}</a></p>
+		{% endif %}
+		{% if cdc_url %}
+			<p>Link to fill out cdc section of SEF: <a href="{{ cdc_url }}">{{ cdc_url }}</a></p>
+		{% endif %}
+	</body>
+</html>
+

@@ -1,0 +1,79 @@
+{% load static %}
+<!doctype html>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="{% static "sef/css/cdcform.css" %}">
+	<body>
+		{% if error_message %}
+		<div id="error-message">
+			<p>Error: {{ error_message }}</p>
+		</div>
+		{% endif %}
+
+		{% if success_message %}
+			<div id="success_msg">
+				<p>'{{ success_message }}'</p>
+			</div>
+		{% endif %}
+
+		<div id="form-body">
+			<form action = "{% url 'complete_cdc' %}" method = "post">
+				<label for='app_id'>Application ID: </label>
+				<input type='text' id='app_id' name='app_id' value ='{{ app_id }}' size= 7 readonly>
+				<br>
+
+				<div id='cdc_section'>
+					<div>
+						<label id='bankmobile_label'>BankMobile Verification: </label>
+						<input type='text' for='bankmobile_label' name='verification' size= 4 required>
+						<p id='staff_initials'>(Staff initials)</p>
+					</div>
+
+					<div>
+						<label id='handshake_label'>Handshake Job ID#: </label>
+						<input type='text' for='handshake_label' name='job_id' size = 10 required>
+					</div>
+				</div>
+
+				<div id='payroll_section'>
+					<div>
+						<div id="signature_section">
+							<div id="signature_wrapper">
+								<label id='signature_label'>Signature Payroll Office: </label>
+								<!--
+								<input type='text' for='signature_label' name='payroll_sign' size = 20 required>
+								-->
+								<div>
+									<canvas id="signature_pad" width=500 height=100></canvas>
+									<div id="signpad-buttons">
+										<button type="button" id="save">Save</button>
+										<button type="button" id="clear">Clear/Undo Signature</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div id="signature-container"></div>
+						<input type="hidden" name="urlInput">
+					</div>
+					
+
+					<div id="dates">
+						<div>
+							<label id='date_signed'>Date: </label>
+							<input type='date' for='date_signed' name='date_signed' required>
+						</div>
+
+						<div>
+							<label id='linked_label'>Date Linked: </label>
+							<input type='date' for='linked_label' name='date_linked' required>
+						</div>
+					</div>
+				</div>
+				{% csrf_token %}
+				<input type='submit' value='Complete'>
+			</form>
+		</div>
+	</body>
+	<script src="{% static 'sef/js/signature_pad/js/signature_pad.js' %}"></script>
+	<script src="{% static 'sef/js/signature_ft.js' %}"></script>
+</html>

@@ -1,0 +1,61 @@
+body {
+	font-family: sans-serif;
+	margin: 0;
+	background-color: #f8f9fa;
+}
+table {
+	border: 1px solid #e6e2e2;
+	border-radius: 10px 10px 0 0;
+	margin: 0 auto;
+	margin-top: 20px;
+	width: 100%;
+	max-width: 960px;
+	/*
+	box-shadow: 0 15px 20px #c3c3c3;
+	*/
+	box-shadow:0 1rem 3rem rgba(0, 0, 0, 0.175) !important; 
+	/*
+	border-collapse: collapse;
+	learned that "border-radius" doesn't apply to table elements when "border-collapse" is declared.
+	*/
+}
+
+th {
+	background-color: #374f75;
+	color: #f0f0f0;
+	letter-spacing: 2px;
+	font-weight: normal;
+}
+
+
+th[colspan] {
+	padding: 5px 5px;
+	border-radius: 10px 10px 0 0;
+}
+
+
+#app-id-cell a {
+	text-decoration: none;
+}
+
+td {
+	border: 1px solid #b3b2b2;
+	padding-left: 10px;
+	text-align: center;
+}
+
+
+tbody tr:nth-child(even) {
+	background-color:#ebebeb;
+
+}
+
+tr {
+	height: 33px;
+}
+
+
+
+
+
+

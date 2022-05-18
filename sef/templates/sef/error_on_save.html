@@ -1,0 +1,17 @@
+{% load static %}
+<!doctype html>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="{% static "sef/css/error_on_save.css" %}">
+
+	<body>
+		{% if error_message %}
+		<div id="error-message">
+			<p>{{ error_message }}</p>
+		</div>
+		{% endif %}
+
+		{% if original_url %}
+		<a href={{ original_url }}>Click this link to return to form</a>
+		{% endif %}
+	</body>
+</html>

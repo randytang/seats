@@ -1,0 +1,545 @@
+{% load static %}
+<!doctype html>
+	<meta charset='utf-8'>
+	<link rel='stylesheet' type='text/css' href="{% static "sef/css/application_details.css" %}">
+	<body>
+		<div class='top_header'>
+			<div id='logo_header1'>
+				<img width="100" height="120" src="{% static "sef/img/riclogo.svg" %}">
+				<h3>Rhode Island College Career Development Center - Student Employment</h3>
+			</div>
+			<h4>Student Employment Form (SEF)</h4>
+		</div>
+		<div class='section_bar'>
+			<h3>STUDENT INFORMATION</h3><span> -<i> to be filled in and signed by student </i></span>
+		</div>
+		{% if student_record %}
+			<div class='student_section'>
+				<div class='lineblock'>
+					<div class='form_line'>
+						<label id='lname_label'>Last Name: </label>
+						<input type="text" for='lname_label' name='lname' value = "{{ student_record.last_name }}" readonly>
+						<label id='fname_label'>First Name: </label>
+						<input type="text" for='fname_label' name='fname' value = "{{ student_record.first_name }}" readonly>
+						<label id='mi_label'>MI: </label>
+						<input type="text" for='mi_label' name='mi' value = "{{ student_record.m_initial }}" readonly>
+					</div<>
+				</div>
+
+				<div class='lineblock'>
+					<div class='form_line'>
+						<label id='studentid_label'>RIC student ID #: </label>
+						<input type="text" for='studentid_label' name='studentid' value = "{{ student_record.ric_student }}" readonly>
+						<label id='phone_label'>Phone #: </label>
+						<input type="text" for='phone_label' name='phone' value = "{{ student_record.phone_number }}" readonly>
+						<label id='email'>RIC e-mail: </label>
+						<input type="text" for='email' name='email' value = "{{ student_record.ric_email }}" readonly>
+					</div>
+				</div>
+
+				<div class='lineblock'>
+					<div class='form_line'>
+						<label id='candidacy'><i>Currently enrolled as candidate for:</i></label>
+							<div class='checkboxpair'>
+								{% if student_record.candidate_degree == 'UNDERGRADUATE' %}
+									<input type='checkbox' for='candidacy' name='ugrad_box' checked disabled>
+								{% else %}
+									<input type='checkbox' for='candidacy' name='ugrad_box' disabled>
+								{% endif %}
+							    <label id='ugrad_label'>undergraduate degree</label>
+							</div>
+							<div class='checkboxpair'>
+								{% if student_record.candidate_degree == 'GRADUATE' %}
+									<input type='checkbox' for='candidacy' name='grad_box' checked disabled>
+								{% else %}
+									<input type='checkbox' for='candidacy' name='grad_box' disabled>
+								{% endif %}
+							    <label id='grad_label'>graduate degree</label>
+							</div>
+					</div>
+				</div>
+
+				<div class='lineblock'>
+					<label id='credit_label'>How many credits are you currently registered for? </label>
+					<input type="text" for='credit_label' name='credits' value ={% if student_record.number_credits %} "{{ student_record.number_credits }}" {% else %} "" {% endif %}  readonly>
+				</div>
+
+				<div class='lineblock'>
+					<div class='form_line'>
+						<div>
+							<label id='previous_emp'>Have you worked on the student payroll previously? (Check one): </label>
+						</div>
+						<div>
+								{% if student_record.previous_employed == 1  %}
+									<input type='checkbox' for='previous_emp' name='previous' checked disabled>
+									<label id='yes_label'>Yes</label>
+									<input type='checkbox' for='previous_emp' name='previous' disabled>
+									<label id='no_label'>No</label>
+								{% else %}
+									<input type='checkbox' for='previous_emp' name='previous' disabled>
+									<label id='yes_label'>Yes</label>
+									<input type='checkbox' for='previous_emp' name='previous' checked disabled>
+									<label id='no_label'>No</label>
+								{% endif %}
+						</div>
+						<div id='previous_emp_date'>
+							<label id='previous_date'><b>If yes,date: </b></label>
+							{% if student_record.date_employed %}
+								<input type='text' for='previous_date' value="{{ student_record.date_employed }}">
+							{% else %}
+								<input type='text' for='previous_date' value="">
+							{% endif %}
+								
+						</div>
+					</div>
+				</div>
+
+				<div class='lineblock'>
+					<div class='form_line'>
+						<div>
+							<label id='current_emp'>Do you currently have another student employment position: </label>
+						</div>
+						<div>
+								{% if student_record.current_employed == 1  %}
+									<input type='checkbox' for='current_emp' name='current' checked disabled>
+									<label id='yes_label'>Yes</label>
+									<input type='checkbox' for='current_emp' name='current' disabled>
+									<label id='no_label'>No</label>
+								{% else %}
+									<input type='checkbox' for='current_emp' name='current' disabled>
+									<label id='yes_label'>Yes</label>
+									<input type='checkbox' for='current_emp' name='current' checked disabled>
+									<label id='no_label'>No</label>
+								{% endif %}
+						</div>
+						<div id='previous_date_sublabel'>
+							<p>semester/year</p>
+						</div>
+					</div>
+				</div>
+
+				<div class='checklist'>
+					<div id='checklist_header'>
+						<h3><i>ACCEPTANCE OF EMPLOYMENT</i></h3><span> - please read and check </span>
+						<hr>
+					</div>
+					<div class='statement'>
+						<div class='checkbox_svg'>
+							<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M24 24h-24v-24h24v24zm-1-23h-22v22h22v-22zm-3 6.435l-10.005 10.565-4.995-5.866.761-.648 4.271 5.015 9.24-9.751.728.685z"/></svg>
+						</div>
+						<p> I have accepted the position indicated on this form and certify that I am registered for enough credits to qualify me to work on the student payroll <b><i>(please note: undergraduate students must remain registered for a minimum of 5 credits and graduate students must remain registered for a minimum of 5 credits)</i></b></p>
+					</div>
+					<div class='statement'>
+						<div class='checkbox_svg'>
+							<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M24 24h-24v-24h24v24zm-1-23h-22v22h22v-22zm-3 6.435l-10.005 10.565-4.995-5.866.761-.648 4.271 5.015 9.24-9.751.728.685z"/></svg>
+						</div>
+						<p>I agree that RIC, after giving me reasonable notice in writing of their intention to do so, may withhold or deduct any salary due to me necessary to pay any outstanding debts I owe the college which are more than 30 days overdue.</p>
+					</div>
+					<div class='statement'>
+						<div class='checkbox_svg'>
+							<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M24 24h-24v-24h24v24zm-1-23h-22v22h22v-22zm-3 6.435l-10.005 10.565-4.995-5.866.761-.648 4.271 5.015 9.24-9.751.728.685z"/></svg>
+						</div>
+						<p>I understand that the Student Payroll Office and the Student Employment Office may share any Student Payroll Employment information with all Student Payroll Supervisors/Employers.</p>
+					</div>
+					<div class='statement'>
+						<div class='checkbox_svg'>
+							<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M24 24h-24v-24h24v24zm-1-23h-22v22h22v-22zm-3 6.435l-10.005 10.565-4.995-5.866.761-.648 4.271 5.015 9.24-9.751.728.685z"/></svg>
+						</div>
+						<p>I understand that I <b>must</b> notify my supervisor by e-mail when I hold more than one job on the student payroll.</p>
+					</div>
+					<div class='statement'>
+						<div class='checkbox_svg'>
+							<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M24 24h-24v-24h24v24zm-1-23h-22v22h22v-22zm-3 6.435l-10.005 10.565-4.995-5.866.761-.648 4.271 5.015 9.24-9.751.728.685z"/></svg>
+						</div>
+						<p>I understand that the maximum number of hours I can work in total is 20 hours per week.</p>
+					</div>
+				</div>
+
+
+				<div class='signature_section'>
+					<div class='form_line'>
+						<label id='signature'>Student's signature: </label>
+						{% if student_record.signature_url %}
+							<img src="{{ student_record.signature_url }}">
+						{% else %}
+							<input type='text' for='signature' value='' readonly>
+						{% endif %}
+							
+						<label id='date_signed_label'>Date: </label>
+						<input type='text' for='date_signed_label' value = '{{ student_record.date_signed }}' readonly>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+		</div>
+
+		<div class='section_bar'>
+			<h3>EMPLOYMENT INFORMATION</h3><span> - <i>to be filled in and signed by employing department/supervisor</i></span>
+		</div>
+
+	{% if employer_record %}
+		<div class='employer_section'>
+			<div class='lineblock'>
+				<div class='form_line'>
+					<p id='off_campus_label'><b>OFF CAMPUS</b></p>
+					<label id='agency_label'>Agency Name: </label>
+					{% if employer_record.agency %}
+						<input type='text' for='agency_label' value = '{{ employer_record.agency }}'  readonly>
+					{% else %}
+						<input type='text' for='agency_label' value = ''  readonly>
+					{% endif %}
+				</div>
+			</div>
+			<div class='lineblock'>
+				<div class='form_line'>
+					<p id='on_campus_label'><b>ON-CAMPUS</b></p>
+					<label id='dept_label'>RIC Department: </label>
+					{% if employer_record.dept_name %}
+						<input type='text' for='dept_label' value = '{{ employer_record.dept_name }}'  readonly>
+					{% else %}
+						<input type='text' for='dept_label' value = ''  readonly>
+					{% endif %}
+					<label id='dept_grant_label'>Dept./Grant#: </label>
+					{% if employer_record.dept_grant_no %}
+						<input type='text' for='dept_grant_label' value = '{{ employer_record.dept_grant_no }}'  readonly>
+					{% else %}
+						<input type='text' for='dept_grant_label' value = ''  readonly>
+					{% endif %}
+				</div>
+			</div>
+
+			<div class='lineblock'>
+				<div class='form_line'>
+					<label id='schedule'>Position Schedule</label>
+						<div class='checkboxpair'>
+							{% if employer_record.pos_sched == 'Remote' %}
+								<input type='checkbox' for='schedule' name='remote_box' checked disabled>
+								<label id='remote_label'>Remote</label>
+								<input type='checkbox' for='schedule' name='hybrid_box' disabled>
+								<label id='hybrid_label'>Hybrid</label>
+								<input type='checkbox' for='schedule' name='on_campus_box' disabled>
+								<label id='on_campus_label'>On-campus</label>
+							{% elif employer_record.pos_sched == 'Hybrid' %}
+								<input type='checkbox' for='schedule' name='remote_box' disabled>
+								<label id='remote_label'>Remote</label>
+								<input type='checkbox' for='schedule' name='hybrid_box' checked disabled>
+								<label id='hybrid_label'>Hybrid</label>
+								<input type='checkbox' for='schedule' name='on_campus_box' disabled>
+								<label id='on_campus_label'>On-campus</label>
+							{% elif employer_record.pos_sched == 'On-campus' %}
+								<input type='checkbox' for='schedule' name='remote_box' disabled>
+								<label id='remote_label'>Remote</label>
+								<input type='checkbox' for='schedule' name='hybrid_box' disabled>
+								<label id='hybrid_label'>Hybrid</label>
+								<input type='checkbox' for='schedule' name='on_campus_box' checked disabled>
+								<label id='on_campus_label'>On-campus</label>
+							{% else %}
+								<input type='checkbox' for='schedule' name='remote_box' disabled>
+								<label id='remote_label'>Remote</label>
+								<input type='checkbox' for='schedule' name='hybrid_box' disabled>
+								<label id='hybrid_label'>Hybrid</label>
+								<input type='checkbox' for='schedule' name='on_campus_box' disabled>
+								<label id='on_campus_label'>On-campus</label>
+							{% endif %}
+						</div>
+				</div>
+			</div>
+
+			<div class='lineblock'>
+				<div class='form_line'>
+					<label id='pos_title_label'>Position Title: </label>
+					{% if employer_record.pos_title %}
+						<input type='text' for='pos_title_label' value='{{ employer_record.pos_title }}'  readonly>
+					{% else %}
+						<input type='text' for='pos_title_label' value=''  readonly>
+					{% endif %}
+					<label id='jobloc_label'>Job location: </label>
+					{% if employer_record.job_loc %}
+						<input type='text' for='jobloc_label' value='{{ employer_record.job_loc }}'  readonly>
+					{% else %}
+						<input type='text' for='jobloc_label' value=''  readonly>
+					{% endif %}
+				</div>
+			</div>
+
+			<div id='source_of_funds_line' class='lineblock'>
+				<div id='source_label'>
+					<label id='source'><b>Source of funds: </b></label>
+				</div>
+				<div id='source_checkboxes_section'>
+					{% if employer_record.source_funds == 'Department funds' %} 
+						<input type='checkbox' checked disabled>
+						<label id='dept_funds_label'>Department funds</label>
+						<input type='checkbox' disabled>
+						<label id='work_study_label'>Work-Study</label>
+						<br>
+						<input type='checkbox' disabled>
+						<label id='grant_label'>Grant (include number) #</label>
+						{% if employer_record.grant_no %}
+							<input type='text' value ='{{ employer_record.grant_no }}' readonly>
+						{% else %}
+							<input type='text' value ='' readonly>
+						{% endif %}
+					{% elif employer_record.source_funds == 'Work Study' %} 
+						<input type='checkbox' disabled>
+						<label id='dept_funds_label'>Department funds</label>
+						<input type='checkbox' checked disabled>
+						<label id='work_study_label'>Work-Study</label>
+						<br>
+						<input type='checkbox' disabled>
+						<label id='grant_label'>Grant (include number) #</label>
+						{% if employer_record.grant_no %}
+							<input type='text' value ='{{ employer_record.grant_no }}' readonly>
+						{% else %}
+							<input type='text' value ='' readonly>
+						{% endif %}
+					{% elif employer_record.source_funds == 'Grant' %} 
+						<input type='checkbox' disabled>
+						<label id='dept_funds_label'>Department funds</label>
+						<input type='checkbox' disabled>
+						<label id='work_study_label'>Work-Study</label>
+						<br>
+						<input type='checkbox' checked disabled>
+						<label id='grant_label'>Grant (include number) #</label>
+						{% if employer_record.grant_no %}
+							<input type='text' value ='{{ employer_record.grant_no }}' readonly>
+						{% else %}
+							<input type='text' value ='' readonly>
+						{% endif %}
+					{% else %} 
+						<input type='checkbox' disabled>
+						<label id='dept_funds_label'>Department funds</label>
+						<input type='checkbox' disabled>
+						<label id='work_study_label'>Work-Study</label>
+						<br>
+						<input type='checkbox' disabled>
+						<label id='grant_label'>Grant (include number) #</label>
+						{% if employer_record.grant_no %}
+							<input type='text' value ='{{ employer_record.grant_no }}' readonly>
+						{% else %}
+							<input type='text' value ='' readonly>
+						{% endif %}
+					{% endif %}
+				</div>
+				<div id='source_input_section'>
+					<label id='work_study_amt_label'>Work Study award amount: </label>
+					{% if employer_record.award_amt %}
+						<input type='text' for='work_study_amt_label' value ='{{ employer_record.award_amt }}'  readonly>
+					{% else %}
+						<input type='text' for='work_study_amt_label' value =''  readonly>
+					{% endif %}
+					<br>
+					<label id='act_sign_label'>Grant Accountant signature: </label>
+					{% if employer_record.acct_sign %} 
+						<input type='text' for='act_sign_label' value ='{{ employer_record.acct_sign }}'  readonly>
+					{% else %}
+						<input type='text' for='act_sign_label' value =''  readonly>
+					{% endif %}
+				</div>
+			</div>
+
+			<div class='lineblock'>
+				<div id='hire_period_row' class='form_line'>
+					<div>
+						<p><b>Hire period:</b></p>
+					</div>
+					<div>
+					{% if employer_record.hire_period == 'Academic year' %}
+						<input type='checkbox' for='academic_yr' checked disabled>
+						<label id='academic_yr'>Academic year</label>
+						<input type='checkbox' for='summer' disabled>
+						<label id='summer'>Summer</label>
+					{% elif employer_record.hire_period == 'Summer' %}
+						<input type='checkbox' for='academic_yr'disabled>
+						<label id='academic_yr'>Academic year</label>
+						<input type='checkbox' for='summer' checked  disabled>
+						<label id='summer'>Summer</label>
+					{% else %}
+						<input type='checkbox' for='academic_yr'disabled>
+						<label id='academic_yr'>Academic year</label>
+						<input type='checkbox' for='summer' disabled>
+						<label id='summer'>Summer</label>
+					{% endif %}
+					</div>
+
+					<div id='begin_date_section'>
+						<label id='date_begin'>Date student is to begin work: </label>
+						{% if employer_record.begin_date %}
+							<input type='text' for='date_begin' value ='{{ employer_record.begin_date }}'  readonly>
+						{% else %}
+							<input type='text' for='date_begin' value =''  readonly>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+
+			<div class='lineblock'>
+				<div id='pay_grade_row' class='form_line'>
+					<div>
+						<p><b>Pay grade:</b></p>
+					</div>
+					<div>
+					{% if employer_record.pay_grade == 'Assistant' %}
+						<input type='checkbox' for='pay_grade' checked disabled>
+						<label id='assistant'>Assistant</label>
+						<input type='checkbox' for='pay_grade' disabled>
+						<label id='associate'>Associate</label>
+						<input type='checkbox' for='pay_grade' disabled>
+						<label id='specialist'>Specialist</label>
+					{% elif employer_record.pay_grade == 'Associate' %}
+						<input type='checkbox' for='pay_grade' disabled>
+						<label id='assistant'>Assistant</label>
+						<input type='checkbox' for='pay_grade' checked disabled>
+						<label id='associate'>Associate</label>
+						<input type='checkbox' for='pay_grade' disabled>
+						<label id='specialist'>Specialist</label>
+					{% elif employer_record.pay_grade == 'Specialist' %}
+						<input type='checkbox' for='pay_grade' disabled>
+						<label id='assistant'>Assistant</label>
+						<input type='checkbox' for='pay_grade' disabled>
+						<label id='associate'>Associate</label>
+						<input type='checkbox' for='pay_grade' checked  disabled>
+						<label id='specialist'>Specialist</label>
+					{% else %}
+						<input type='checkbox' for='pay_grade' disabled>
+						<label id='assistant'>Assistant</label>
+						<input type='checkbox' for='pay_grade' disabled>
+						<label id='associate'>Associate</label>
+						<input type='checkbox' for='pay_grade' disabled>
+						<label id='specialist'>Specialist</label>
+					{% endif %}
+					</div>
+
+					<div id='rate_of_pay'>
+						<label id='rate'>Rate of pay: </label>
+						{% if employer_record.rate_of_pay %}
+							<input type='text' for='rate' value =${{ employer_record.rate_of_pay }}  readonly>
+						{% else %}
+							<input type='text' for='rate' value =''  readonly>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+
+			<div class='lineblock'>
+				<div class='form_line'>
+					<label id='responsible_label'><b>Responsible person: </b></label>
+					{% if employer_record.responsible %}
+						<input type='text' for='responsible_label' value='{{ employer_record.responsible }}'  readonly>
+					{% else %}
+						<input type='text' for='responsible_label' value=''  readonly>
+					{% endif %}
+					<label id='title_label'>Title: </label>
+					{% if employer_record.resp_title %}
+						<input type='text' for='title_label' value='{{ employer_record.resp_title }}'  readonly>
+					{% else %}
+						<input type='text' for='title_label' value=''  readonly>
+					{% endif %}
+				</div>
+			</div>
+
+
+			{% if employer_record.signature %}
+				<div class='lineblock'>
+					<div class='signature_section'>
+							<label id='signature_dept_label'>Signature of Department Head/Supervisor: </label>
+							<img src="{{ employer_record.signature }}">
+					</div>
+				</div>
+			{% else %}
+				<div class='lineblock'>
+					<div class='form_line'>
+							<label id='signature_dept_label'>Signature of Department Head/Supervisor: </label>
+							<input type='text' for='signature_dept_label' value='' readonly>
+					</div>
+				</div>
+			{% endif %}
+
+			<div class='lineblock'>
+				<div class='form_line'>
+					<label id='dept_head_name_label'>Name of Department Head: </label>
+					{% if employer_record.name_dept_head %}
+						<input type='text' for='dept_head_name_label' value='{{ employer_record.name_dept_head }}'  readonly>
+					{% else %}
+						<input type='text' for='dept_head_name_label' value=''  readonly>
+					{% endif %}
+					<label id='emp_date_label'>Date: </label>
+					{% if employer_record.date_signed %}
+						<input type='text' for='emp_date_label' value='{{ employer_record.date_signed }}'  readonly>
+					{% else %}
+						<input type='text' for='emp_date_label' value=''  readonly>
+					{% endif %}
+				</div>
+			</div>
+
+		</div>
+		{% endif %}
+
+		<div class='section_bar'>
+			<h3>PAYROLL OFFICE/CDC USE ONLY</h3>
+		</div>
+		<div class='cdc_section'>
+			{% if cdc_record %}
+				<div class='lineblock'>
+					<div class='form_line'>
+						<label id='verification_label'>BankMobile verification: </label>
+						{% if cdc_record.verification %}
+							<input type='text' for='verification_label' value='{{ cdc_record.verification }}' size = 4 readonly>
+						{% else %}
+							<input type='text' for='verification_label' value='' readonly>
+						{% endif %}
+
+						<label id='handshake_label'>Handshake Job ID#: </label>
+						{% if cdc_record.handshake_id %}
+							<input type='text' for='handshake_label' value='{{ cdc_record.handshake_id }}' readonly>
+						{% else %}
+							<input type='text' for='handshake_label' value='' readonly>
+						{% endif %}
+
+					</div>
+				</div>
+					
+				<p id='staff_initials'>(Staff initials)</p>
+
+				<div class='lineblock'>
+						<div class="signature_section">
+							<label id='payroll_signature_label'>Signature Payroll Office: </label>
+							{% if cdc_record.payroll_sign %}
+								{% comment %}
+								<input type='text' for='payroll_signature_label' value='{{ cdc_record.payroll_sign }}' readonly>
+								{% endcomment %}
+								<img src="{{ cdc_record.payroll_sign }}">
+							{% else %}
+								<input type='text' for='payroll_signature_label' value='' readonly>
+							{% endif %}
+						</div>
+				</div>
+
+				<div class="lineblock">
+					<div class="form_line">
+						<label id='date_payroll_signed'>Date: </label>
+						{% if cdc_record.date_signed %}
+							<input type='text' for='date_payroll_signed' value='{{ cdc_record.date_signed }}' readonly>
+						{% else %}
+							<input type='text' for='date_payroll_signed' value='' readonly>
+						{% endif %}
+
+						<label id='date_linked'>Date Linked: </label>
+						{% if cdc_record.date_linked %}
+							<input type='text' for='date_linked' value='{{ cdc_record.date_linked }}' readonly>
+						{% else %}
+							<input type='text' for='date_linked' value='' readonly>
+						{% endif %}
+					</div>
+				</div>
+
+			{% endif %}
+		</div>
+	</body>
+	<footer>
+		<p id='footer_p'>600 Mt. Pleasant Avenue	&#8226 Providence, RI 02908-1996 &#8226 (401)456-8031  &#8226 TTY/TDD: 7II</p>
+		<hr>
+		<div id='link_revised'>
+			<a href='https://www.ric.edu'>www.ric.edu</a><span>Revised 10/2020</span>
+		</div>
+</html>

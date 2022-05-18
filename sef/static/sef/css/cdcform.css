@@ -1,0 +1,87 @@
+body {
+	font-family: sans-serif;
+	margin: 0 auto;
+	background-color: #f8f8f8;
+
+}
+
+#form-body {
+	margin: 30px auto;
+	border-radius: 5px;
+	max-width: 900px;
+	box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+	padding: 20px 50px;
+	background-color: white;
+}
+
+
+label {
+	font-size: 0.95rem;
+	margin: 5px;
+}
+
+input {
+	margin: 5px 0;
+	padding: 5px;
+	border: 1px solid #c3c3c3;
+	border-radius: 5px;
+}
+
+#app_id, #dept {
+	background-color: #dddddd;
+	color:#8b8b8b; 
+}
+
+#error-message {
+	width: 100%;
+}
+
+#error-message p {
+	width: 50%;
+	margin: 0 auto;
+	color: red;
+}
+
+
+#staff_initials {
+	font-size: 10px;
+	position: relative;
+	left: 200px;
+	margin: 0;
+}
+
+#cdc_section, #dates {
+	display: flex;
+	justify-content: space-between;
+}
+
+
+#success_msg {
+	color: green;
+	background: #d5eed5;
+	max-width: 900px;
+	padding: 5px 10px;
+	border-radius: 5px;
+	margin: 0 auto;
+}
+
+canvas {
+	border: 1px solid #c9c9c9;
+}
+
+#signature_wrapper {
+	display: flex;
+	align-items: end;
+}
+
+#signature_wrapper label {
+	margin-bottom: 30px;
+}
+
+#signature_section {
+	margin: 10px 0;
+}
+
+#signature-container img {
+	border-bottom: 1px solid black;
+}

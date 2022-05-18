@@ -1,0 +1,140 @@
+{% load static %}
+<!doctype html>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="{% static "sef/css/student_section.css" %}">
+	<body>
+		{% if error_message %}
+		<div id="error-message">
+			<p>Error: {{ error_message }}</p>
+		</div>
+		{% endif %}
+
+		<div id="form-body">
+			<form action = "{% url 'complete_student' %}" method = "post">
+				<!-- i don't think we have to pass in any values to the URL tag above because we just want to save a record to the database.
+				-->
+				<label for="app_id">Application ID: </label>
+				<input type="text" id="app_id" name="app_id" value={{ app_id }} size=7 readonly>
+				<label for="dept">Dept./Employer code: </label>
+				<input type="text" id="dept" name="dept_code" value={{ dept_code }} size = 3 readonly>
+				<br>
+
+				<label for="last_name">Last Name: </label>
+				<input type="text" id="last_name" name="l_name" maxlength=45 autocomplete="off" required>
+				<label for="first_name">First Name: </label>
+				<input type="text" id="first_name" name="f_name" maxlength=45 autocomplete="off" required>
+				<label for="m_initial">MI: </label>
+				<input type="text" id="m_initial" name="mi" maxlength=2 autocomplete="off" size=2>
+
+
+
+				<br>
+				<label for="ric_id_input">RIC student ID #: </label>
+				<input type="text" id="ric_id_input" name="ric_student_id" maxlength=7 autocomplete="off" required size=10>
+				<label for="phone_number">Phone #: </label>
+				<input type="text" id="phone_number" name="p_number" maxlength=10 autocomplete="off" required size=10>
+				<label for="ric_email">RIC e-mail: </label>
+				<input type="email" id="ric_email" name="email" maxlength=45 autocomplete="off" placeholder="jsmith_1111@ric.edu" required>
+				
+				<br>
+				<span><i>Currently enrolled as a candidate for:</i> </span>
+				<input type="radio" id="ugrad" name="candidacy" value="UNDERGRADUATE" required>
+				<label for="ugrad">Undergraduate </label>
+				<input type="radio" id="grad" name="candidacy" value="GRADUATE" required>
+				<label for="grad">Graduate </label>
+
+				<br>
+				<label for="no_credits">How many credits are you currently registered for? </label>
+				<input type="number" id="no_credits" name="number_credits" max=25 style="width: 3em" required>
+				
+				<br>
+				<span>Have you worked on the student payroll previously? </span>
+				<input type="radio" id="previous_emp_yes" name="previous_emp" value=1 required>
+				<label for="previous_emp_yes">Yes </label>
+				<input type="radio" id="previous_emp_no" name="previous_emp" value=0 required>
+				<label for="previous_emp_no">No</label>
+
+				<div id="date-employed">
+					<label for="date_employed"><b>If yes, date: </b></label>
+					<input type="text" id="date_employed" name="date_employed" maxlength=9 size=9>
+					<p><i>semester/year</i></p>
+				</div>
+
+				<br>
+				<span>Do you currently have another student employment position </span>
+				<input type="radio" id="current_emp_yes" name="current_emp" value=1 required>
+				<label for="current_emp_yes">Yes </label>
+				<input type="radio" id="current_emp_no" name="current_emp" value=0>
+				<label for="current_emp_no">No</label>
+
+				<br>
+				<div id="acceptance_checklist">
+					<h3><i>ACCEPTANCE OF EMPLOYMENT - please read and check</i></h3>
+					<hr>
+
+					<input type="checkbox" id="acceptance_1" name="acceptance_boxes" required>
+					<label for="acceptance_1">I have accepted the position indicated on this form and certify that I am registered for enough credits to qualify me to work on the student payroll <b><i>(Please note: undergraduate students must remain registered for a minimum of 6 credits and graduate students must remain registered for a minimum of 5 credits)</i></b></label>
+
+					<br>	
+					<input type="checkbox" id="acceptance_2" name="acceptance_boxes" required>
+					<label for="acceptance_2">I agree that RIC, after giving me reasonable notice in writing of their intention to do so, may withhold or deduct any salary due to me necessary to pay any outstanding debts I owe the college which are more than 30 days overdue.</label>
+
+					<br>	
+					<input type="checkbox" id="acceptance_3" name="acceptance_boxes" required>
+					<label for="acceptance_3">I understand that the Student Payroll Office and the Student Employment Office may share any Student Payroll Employment information with all Student Payroll Supervisors/Employers.</label>
+
+					<br>	
+					<input type="checkbox" id="acceptance_4" name="acceptance_boxes" required>
+					<label for="acceptance_4">I understand that I <b>must</b> notify my supervisor by e-mail when I hold more than one job on the student payroll.</label>
+
+					<br>	
+					<input type="checkbox" id="acceptance_5" name="acceptance_boxes" required>
+					<label for="acceptance_5">I understand that the maximum number of hours I can work in total is 20 hours per week.</label>
+					
+				</div>
+
+				<div id="signature-section">
+					<div id="signature-wrapper">
+						<!--
+						<label for="student_sign">Student's signature: </label>
+						<input type="text" id="student_sign" name='signed' required>
+						-->
+						<canvas id="signature_pad" width=500 height=100></canvas>
+						<div id="signature-container"></div>
+					</div>
+
+					<input type="hidden" name="urlInput">
+
+					<div id="date-section">
+						<label for="student_sign_date">Date: </label>
+						<input type="date" id="student_sign_date" name='date_student_signed' required>
+					</div>
+				</div>
+
+				<div id="signpad-buttons">
+					<button type="button" id="save">Sign</button>
+					<button type="button" id="clear">Clear/Undo Signature</button>
+
+				</div>
+
+
+
+
+				{% csrf_token %}
+				<br>
+				<input type="submit" value = "Submit">
+
+			</form>
+		</div>
+	</body>
+
+	{% comment %}
+	<!--
+
+	<script src="{% static 'sef/js/signature_pad/js/signature_pad.js' %}"></script>
+	-->
+	{% endcomment %}
+	<script src="{% static 'sef/js/signature_pad.js' %}"></script>
+	<script src="{% static 'sef/js/signature_ft.js' %}"></script>
+	
+</html>

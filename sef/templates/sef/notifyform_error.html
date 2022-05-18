@@ -1,0 +1,13 @@
+{% load static %}
+<!doctype html>
+	<meta charset='utf-8'>
+	<link rel="stylesheet" type="text/css" href="{% static "sef/css/notifyform_error.css" %}">
+	<body>
+		{% if error_message %}
+			<p>{{ error_message }}</p>
+		{% endif %}
+
+		<a href="{% url 'notificationform' %}">Return to notify form</a>
+	</body>
+</html>
+

@@ -1,0 +1,149 @@
+{% load static %}
+<!doctype html>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="{% static "sef/css/app_list.css" %}">
+	<header>
+		{% comment %}
+		<img id="ric-official" src={% static "/sef/img/hs_logo.png" %}>
+		going to try a colored jpg of ric logo instead of png. 
+		{% endcomment %}
+		<img id="ric-official" src={% static "/sef/img/ric2logo.jpg" %}>
+		<div class="head-logo">
+			<h1>Career Development Center</h1>
+		</div>
+
+		<form class="form-inactive" id="queue-form" action="{% url 'searchapps' %}" method="GET">
+			<div class="search-wrapper">
+				<button class="search-btn" form="queue-form">
+					<svg focusable="false" height="24px" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg"><path d="M20.49,19l-5.73-5.73C15.53,12.2,16,10.91,16,9.5C16,5.91,13.09,3,9.5,3S3,5.91,3,9.5C3,13.09,5.91,16,9.5,16 c1.41,0,2.7-0.47,3.77-1.24L19,20.49L20.49,19z M5,9.5C5,7.01,7.01,5,9.5,5S14,7.01,14,9.5S11.99,14,9.5,14S5,11.99,5,9.5z"></path><path d="M0,0h24v24H0V0z" fill="none"></path></svg>
+				</button>
+				<input id="search-box" placeholder="Search by student/app ID/name" name="qinput" type="text">
+			</div>
+		</form>
+	</header>
+	
+	<div class="loader-container">
+		<div class="loader-animation">
+		</div>
+	</div>
+	<body>
+		<div class="main-wrapper">
+			<nav class="sidebar-navigation">
+				<ul>
+					<li class="menu-item">
+						<button class="menu-button"><a href="{% url 'cdcadmin' %}">Main</a></button>	
+					</li>
+					<li class="menu-item">
+						<button class="menu-button">Dashboard</button>	
+					</li>
+				</ul>
+			</nav>
+			<div class="table-wrapper">
+				<div class="table-scroll-block">
+					<table>
+						<thead>
+							<tr>
+								<th colspan="8">Current Applications - Queue</th>
+							</tr>
+							<tr>
+								<th>APPLICATION ID</th>
+								<th>STUDENT<br>SECTION</th>
+								<th>EMPLOYER<br>SECTION</th>
+								<th>STATUS</th>
+								<th>STUDENT</th>
+								<th>EMAIL NOTIFIED</th>
+								<th>DEPT/AGENCY</th>
+								<th>ATTACHMENTS</th>
+							</tr>
+						</thead>
+						<tbody>
+						{% if apps_list %}
+							{% for application in apps_list %}
+								<tr class="non-head-rows">
+									<td id="app-id-cell">
+										<input type="checkbox" id="checkbox_{{ application.application_fk_id }}" class="app-checkbox" name="selectedApplication" form="selected-apps" value="{{ application.application_fk_id }}">
+										<a target="_blank" href="/sef/viewApplication/{{ application.application_fk_id }}">{{ application.application_fk_id }}</a>
+									</td>
+									{% if application.student_completed %}
+										{% comment %}
+											i want to instead, reference a local/saved png of the checkmark png because i want to minimize dependancies to external sites.
+										<td><img src="https://img.icons8.com/color/25/000000/checkmark--v1.png"/></td>
+										{% endcomment %}
+										<td><img src="{% static 'sef/img/checkmark--v1.png' %}"/></td>
+									{% else %}
+										<td></td>
+									{% endif %}
+									{% if application.employer_completed %}
+										<td><img src="{% static 'sef/img/checkmark--v1.png' %}"/></td>
+									{% else %}
+										<td></td>
+									{% endif %}
+									{% if application.app_status %}
+										<td><i>{{ application.app_status }}</i></td>
+									{% else %}
+										<td></td>
+									{% endif %}
+									{% if application.application_fk.last_name %}
+										<td><b>{{ application.application_fk.last_name }}, {{ application.application_fk.first_name }}</b></td>
+									{% else %}
+										<td></td>
+									{% endif %}
+									{% if application.email_used %}
+										<td><a href="mailto:{{ application.email_used }}">{{ application.email_used }}</a></td>
+									{% else %}
+										<td></td>
+									{% endif %}
+									{% if application.dept_code.name %}
+										<td>{{ application.dept_code.name }}</td>
+									{% else %}
+										<td></td>
+									{% endif %}
+									{% comment %}
+										i have to remember to add a "dept_code" field/attribute to our application_status table from which we'll use to grab/query the department name so we can display in this table data cell. but until then we'll just display an empty <td> element
+									{% endcomment %}
+									<td>
+										<div class='attachment-icon'>
+											<a target='_blank' href="/sef/attachments/{{ application.application_fk_id }}">
+												<img  src="{% static 'sef/img/folder1.png' %}" width = 20 height = 20 >
+											</a>
+										</div>
+									</td>
+								</tr>
+							{% endfor %}
+						{% else %}
+							<p>Sorry, no applications started yet</p>
+						{% endif %}
+						</tbody>
+					</table>
+				</div>
+					{% comment %}
+						<li><a href="/sef/viewApplication/{{ application.application }}">{{ application }}</a></li>
+						<li><a href="{% url 'app_view' application.application %}">{{ application }}</a></li>
+					{% endcomment %}
+				<form id="selected-apps">
+					{% csrf_token %}
+				</form>
+
+				<div id="form-buttons-container">
+					<button class="form-btns" type="submit" form="selected-apps" formaction="{% url 'delete_apps' %}" formmethod="post">Delete</button>
+					{% comment %}
+
+					<button class="form-btns" type="submit" form="selected-apps" formaction="{% url 'print_apps' %}" formmethod="post">Print</button>
+					
+					{% endcomment %}
+
+					<button id="printBtn" class="form-btns" type="button" form="selected-apps">Print</button>
+
+				</div>
+			</div>
+		</div>
+
+		{% if error_msg %}
+			<div id="error-container">
+				<p id='error-msg'>{{ error_msg }}</p>
+			</div>
+		{% endif %}
+	</body>
+	<script src="{% static "/sef/js/cdc_queue.js" %}">
+	</script>
+</html>

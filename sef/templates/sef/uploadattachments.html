@@ -1,0 +1,56 @@
+{% load static %}
+<!doctype html>
+	<meta charset='utf-8'>
+	<link rel='stylesheet' type='text/css' href='{% static 'sef/css/uploadattachments.css' %}'>
+
+	<body>
+		{% if error_message %}
+			<div class='error'>
+				<p>{{ error_message }}</p>
+			</div>
+		{% endif %}
+
+		<form action="{% url 'submit_attachments' app_id %}" enctype="multipart/form-data" method="post">
+			<div>
+				<label for="claims">Bar of Claims form: </label>
+				<input type="file" id="claims" name="barclaims" accept=".pdf">
+			</div>
+
+			<div>
+				<label for="drug">Drug-free Workplace form: </label>
+				<input type="file" id="drug" name="drug_free" accept=".pdf">
+			</div>
+
+			<div>
+				<label for="i9">I-9 form: </label>
+				<input type="file" id="i9" name="i9" accept=".pdf">
+			</div>
+
+			<div>
+				<label for="w4">W-4 form: </label>
+				<input type="file" id="w4" name="w4" accept=".pdf">
+			</div>
+
+			<div>
+				<label for="ident">Identification: </label>
+				<input type="file" id="ident" name="identification" accept="image/*">
+			</div>
+
+			<div>
+				<label for="schedule">Class Schedule: </label>
+				<input type="file" id="schedule" name="class_sched" accept="image/*">
+			</div>
+
+			<div>
+				<label for="work_study">Work-Study Award: </label>
+				<input type="file" id="work_study" name="work_study" accept="image/*">
+			</div>
+
+			<div>
+				<input type="submit" value="Upload">
+			</div>
+			{% csrf_token %}
+
+		</form>
+	</body>
+</html>

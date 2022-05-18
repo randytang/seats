@@ -1,0 +1,199 @@
+.top_header, .section_bar, .student_section, .employer_section, .cdc_section {
+	width: 960px;
+	margin: 0 auto;
+}
+#logo_header1 {
+	display: flex;
+	align-items: center;
+}
+#logo_header1 h3 {
+	margin-left: 20px;
+}
+
+.top_header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.top_header h4 {
+	margin: 0 auto;
+}
+
+body {
+	margin: 0 auto;
+	font-family: sans-serif;
+}
+
+.section_bar {
+	padding: 2px 2px;
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
+	background: #e5e5e5;
+}
+.section_bar h3, .section_bar span {
+	display: inline;
+}
+
+
+input[type="text"] {
+	text-align: center;
+	border: none;
+	border-bottom: 1px solid gray;
+	width: 100%;
+	flex: auto;
+	font-family: Courier, monospace;
+	margin-left: 5px;
+	margin-right:25px; 
+	font-weight: bold;
+}
+
+/*
+ * lol, i think i've improved my understanding of flex with this project. and i think it only took me about 15 minutes to crash review the concept. so "input" elements are set to flex: auto which means it will flex-grow and flex-shrink as needed but its parent container has to be set with "display: flex". if you don't want any other elements within same flex container to grow likewise, then set "flex-shrink" to "0" to stop it from shrinking.
+ */
+
+label {
+	flex-shrink: 0;
+	color: #3c3c3c;
+}
+
+
+.form_line {
+	display: flex;
+	margin: 5px 5px;
+	align-items: center;
+}
+	
+
+input[for="mi_label"] {
+	width: 1rem;
+}
+
+input[for="credit_label"] {
+	max-width: 2rem;
+}
+
+.checkboxpair {
+	margin: 0 1rem; 
+}
+
+.lineblock {
+	margin: 0.5rem 0;
+}
+
+#previous_emp_date {
+	display: flex;
+	flex-direction: row;
+	margin-left: 20px;
+}
+
+#previous_emp_date input {
+	max-width: 50%;
+}
+
+#previous_date_sublabel {
+	margin-left: 12rem;
+}
+
+#previous_date_sublabel p {
+	margin: 0;
+	
+}
+
+.checklist {
+	margin: 0 30px;
+}
+
+#checklist_header h3, #checklist_header span{
+	display: inline;
+}
+
+.statement {
+	display: flex;
+	align-items: center;
+	font-size: 0.75em;
+}
+
+.statement p, #agency_label, #dept_label {
+	margin-left: 10px;
+}
+
+#off_campus_label, #on_campus_label {
+	flex-shrink: 0;
+}
+
+.employer_section .form_line {
+	height: 1rem;
+}
+
+
+
+
+#source_of_funds_line, #begin_date_section, #rate_of_pay {
+	display: flex;
+	padding: 0 5px;
+}
+
+#source_label, #source_checkboxes_section, #source_input_section{
+	flex-shrink: 0;
+}
+
+#source_of_funds_line input[type='text'] {
+	max-width:max-content; 
+	margin-right: 0px;
+}
+
+#hire_period_row, #pay_grade_row {
+	justify-content: space-between;
+}
+
+#staff_initials {
+	position: relative;
+	left: 300px;
+	font-size: 10px;
+	margin: 0;
+}
+
+footer {
+	margin-top: 10%;
+	margin-left: auto;
+	margin-right: auto;
+	width: 960px;
+}
+
+#link_revised {
+	font-size: 12px;
+	float: right;
+}
+
+#link_revised a {
+	margin-right: 5px;
+}
+#footer_p {
+	font-size: 12px;
+	margin: 0;
+}
+
+.signature_section, .signature_section .form_line{
+	display: flex;
+	align-items: end;
+}
+
+.signature_section img {
+	border-bottom: 1px solid black;
+}
+
+.statement p {
+	/*
+	margin: 10px 0;
+	*/
+	margin: 0px 10px;
+
+}
+
+
+@media print {
+	@page { margin: 0; }
+	body { margin: 1.6cm; }
+}
+

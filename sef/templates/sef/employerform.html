@@ -1,0 +1,123 @@
+{% load static %}
+<!doctype html>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="{% static "sef/css/employer_section.css" %}">
+	<body>
+		{% if error_message %}
+		<div id="error-message">
+			<p>Error: {{ error_message }}</p>
+		</div>
+		{% endif %}
+
+		<div id="form-body">
+			<form action = "{% url 'complete_employer' %}" method = "post">
+				<label for="app_id">Application ID: </label>
+				<input type="text" id="app_id" name="app_id" value={{ app_id }} size=7 readonly>
+				<label for="dept">Dept./Employer code: </label>
+				<input type="text" id="dept" name="dept_code" value={{ dept_code }} size = 3 readonly>
+				<br>
+
+				<label for="agency_name"><b>OFF CAMPUS: </b>Agency Name: </label>
+				<input type="text" id="agency_name" name="agency_name" maxlength=30 size=30 autocomplete="off">
+				<br>
+				<label for="dept_name"><b>ON-CAMPUS: </b>RIC Department: </label>
+				<input type="text" id="dept_name" name="dept_name" maxlength=30 size=30>
+				<label for="dept_grant_no">Dept./Grant#: </label>
+				<input type="text" id="dept_grant_no" name="dept_grant_no" maxlength=5 size=5>
+				<br>
+
+				<span>Position Schedule</span>
+				<input type="radio" id="remote" name="position_sched" value="Remote" required>
+				<label for="remote">Remote</label>
+				<input type="radio" id="hybrid" name="position_sched" value="Hybrid" required>
+				<label for="hybrid">Hybrid</label>
+				<input type="radio" id="oncampus" name="position_sched" value="On-campus" required>
+				<label for="oncampus">On-campus</label>
+				<br>
+
+				<label for="pos_title">Position Title: </label>
+				<input type="text" id="pos_title" name="position_title" maxlength = 50 required>
+				<label for="job_loc">Job location: </label>
+				<input type="text" id="job_loc" name="job_location" maxlength = 50 required>
+				<br>
+
+				<label for="source_funds">Source of funds: </label>
+				<input type="radio" id="dept_funds" name="source" value="Department funds" required>
+				<label for="dept_funds">Department funds</label>
+				<input type="radio" id="work_study" name="source" value="Work Study" required>
+				<label for="work_study">Work study</label>
+				<label for="work_study_amt">Work Study award amount: </label>
+				<input type="text" id="work_study_amt" name="award_amt" maxlength=10>
+				<br>
+				<input type="radio" id="grant" name="source" value="Grant" required>
+				<label for="grant">Grant (include number)#:</label>
+				<input type="text" id="grant" name="grant_no" maxlength=10>
+				<label for="grant_sign">Grant Accountant signature: </label>
+				<input type="text" id="grant_sign" name="grant_signature" maxlength=20>
+				<br>
+
+				<label for="hire_period">Hire period: </label>
+				<input type="radio" id="academic_yr" name="hire_period" value="Academic year" required>
+				<label for="academic_yr">Academic Year</label>
+				<input type="radio" id="summer" name="hire_period" value="Summer" required>
+				<label for="summer">Summer</label>
+				<label for="begin_date">Date student is to begin work: </label>
+				<input type="date" id="begin_date" name="begin_date" required>
+				<br>
+
+				<label for="pay_grade">Pay grade (see below): </label>
+				<input type="radio" id="asst" name="pay_grade" value="Assistant" required>
+				<label for="asst">Assistant</label>
+				<input type="radio" id="assoc" name="pay_grade" value="Associate" required>
+				<label for="assoc">Associate</label>
+				<input type="radio" id="spec" name="pay_grade" value="Specialist" required>
+				<label for="spec">Specialist</label>
+				<label for="rate">Rate of pay: </label>
+				<input type="text" id="rate" name="rate_of_pay" maxlength=8 size=15 required>
+				<br>
+
+				<label for="responsible">Responsible person: </label>
+				<input type="text" id="responsible" name="resp" maxlength=20 size=20 required>
+				<label for="title">Title: </label>
+				<input type="text" id="title" name="title" maxlength=30 size=30 required>
+				<br>
+				<!--
+				<input type="text" id="signature" name="signature" maxlength=20 size=20 required>
+				-->
+				<div id="signature_section">
+					<div id="signature-wrapper">
+						<div id="sign-label-container">
+							<label for="signature">Signature of Department Head/Supervisor: </label>
+						</div>
+
+						<div>
+							<canvas id="signature_pad" width=500 height=100></canvas>
+							<div id="signpad-buttons">
+								<button type="button" id="save">Sign</button>
+								<button type="button" id="clear">Clear/Undo Signature</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div id="signature-container"></div>
+				<input type="hidden" name="urlInput">
+
+				<br>
+				<label for="dept_head_name">Name of Department Head: </label>
+				<input type="text" id="dept_head_name" name="dept_head_name" maxlength=20 size = 20 required>
+				<label for="date_signed">Date: </label>
+				<input type="date" id="date_signed" name="date_signed" required>
+				
+				{% csrf_token %}
+				<br>
+				<input type="submit" value = "Submit">
+			</form>
+		</div>
+	</body>
+	<script src="{% static 'sef/js/signature_pad/js/signature_pad.js' %}"></script>
+	<script src="{% static 'sef/js/signature_ft.js' %}"></script>
+
+	
+</html>
