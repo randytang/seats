@@ -43,7 +43,6 @@ def studentForm(request):
             'student_app': model,
             'app_id': application_id,
             }
-#    return HttpResponse("testing one two")
     return render(request, 'sef/studentForm.html', context)
 
 #   we're going to create a second view function that will hopefully be the more enhanced version of our previous 'studentForm' view function
@@ -62,7 +61,7 @@ def employerform(request, application_id, dept_code):
             'dept_code': dept_code,
             }
     return render(request, 'sef/employerform.html', context)
-#    return HttpResponse("employers fill out section here")
+
 
 def cdcform(request, app_id):
     context = {}
@@ -81,7 +80,6 @@ def submit_cdc_section(request):
 
     verification = request.POST['verification']
     handshake = request.POST['job_id']
-#    signature = request.POST['payroll_sign']
     signature = request.POST['urlInput']
     date_signed = request.POST['date_signed']
     date_linked = request.POST['date_linked']
@@ -159,7 +157,6 @@ def submit_employer_section(request):
         rate = 0.00
     responsible = request.POST['resp']
     title = request.POST['title']
-#    signature = request.POST['signature']
     signature = request.POST['urlInput']
     name_depthead = request.POST['dept_head_name']
     date_signed = request.POST['date_signed']
@@ -186,7 +183,6 @@ def submit_employer_section(request):
     existing_employer_record.date_signed = date_signed
 
     try:
-#       employer_record = EmployerSection(**model_params)
 #   actually, instead of creating a new record, we just have to update the existing record created by the 'notifyform' view.
 
         existing_employer_record.save()
@@ -231,9 +227,6 @@ def submit_student_section(request):
     try:
         middle_initial = request.POST['mi']
     except KeyError as a:
-        # maybe i should initialize middle_initial = None but im unsure
-        # if we could pass None to the database. will it just save as "Null"?
-        # lol, someone on stack overflow said just return None so i'll initialize it to None.
         middle_initial = None
     ric_id = request.POST['ric_student_id']
     phone_number = request.POST['p_number']
@@ -243,64 +236,14 @@ def submit_student_section(request):
     previous_employed = request.POST['previous_emp']
     current_employment = request.POST['current_emp']
     accepted = 1
-#    signature = request.POST['signed']
     signature = request.POST['urlInput']
     date_signed = request.POST['date_student_signed']
-
-#    try:
-#        candidacy = request.POST['ugrad_box']
-#    except KeyError as b:
-#        try:
-#            candidacy = request.POST['grad_box']
-#        except KeyError as c:
-#            error_message = "sorry, you have to select an option for candidacy."
-#            context['error_message'] = error_message
-#            return render(request, 'sef/studentForm.html', context)
-#           lol, using 'redirect' below vs 'render' in above line because it was sending using to incorrect view 'sef/studentForm.html', 
-#           instead we want to redirect student back to form but also with prepopulated app_id and dept_code so url 'studentform/app_id/dept_code'.
-#           lol but we won't anticipate this sort of error checking and redirecting because we're going to change this input element from a checkbox
-#           to a more appropriate input element of radio because it forces selection of only 1 selection i think. same with the other checkbox input elements.
-#           but other reason why i wanted to use 'redirect' was to test using the method as i don't think i've used it before.
-#            return redirect('studentform/' + application_id + '/' + department_code, error_message)
-#        pass
-
 
     try:
         d_employed = request.POST['date_employed']
     except KeyError as f:
         d_employed = None
-
-
-    #   i want to possibly set up a dictionary containing all the fields-value pairs
-    #   so i can either log this dictionary or serialize it for logging/debugging purposes.
-    #   we can also possible pass this dictionary to StudentSection as an argument to save lines
-    #   and or make code more readable.
-
-#    form_dict = {
-#            'application': application_id,
-#            'dept_code': department_code,
-#            'ric_student': ric_id,
-#            'last_name': last_name,
-#            'first_name': first_name,
-#            'm_initial': middle_initial,
-#            'phone_number': phone_number,
-#            'ric_email': ric_email,
-#            'candidate_degree': candidacy,
-#            'number_credits': no_credits,
-#            'previous_employed': previous_employed,
-#            'date_employed': d_employed,
-#            'current_employed': current_employment,
-#            'acceptance': accepted,
-#            'signature_captured': signature,
-#            'date_signed': date_signed
-#            }
-#    stringified_form_dict = '('
-#    for k, v in form_dict.items():
-#        stringified_form_dict += k + ": " + str(v) + ", "
-#    stringified_form_dict += ')'
-#    logger.warning(f'values before trying to save() to StudentSection table {stringified_form_dict}')
     
-#    new_student_application = StudentSection(**form_dict)
 #   since we're going to now attempt to update an existing record in the database, we now have to use the instance.attribute notation rather than call "StudentSection()" method.
     try:
         student_to_update.last_name = last_name
@@ -316,9 +259,8 @@ def submit_student_section(request):
         student_to_update.acceptance = accepted
         student_to_update.signature_url = signature
         student_to_update.date_signed = date_signed
-#        new_student_application.save()
         student_to_update.save()
-#        logger.debug('successfully saved a new record to StudentSection db')
+
         logger.debug('successfully updated existing record in StudentSection db')
     except IntegrityError as j:
         logger.critical('failed to update record in StudentSection db: {0}'.format(j))
@@ -345,27 +287,12 @@ def submit_student_section(request):
 
 
 def cdcView(request):
-#    applications_list = StudentSection.objects.all()
-#   lol, i actually used the wrong model, it should be "ApplicationStatus"
-#   not StudentSection. don't forget to import the appropriate model as well
     applications_list = ApplicationStatus.objects.all()
-#    application_status = ApplicationStatus.objects.all()
-#   we got a "NameError" when navigating to this view
-#   stating "name 'ApplicationStatus' is not defined, 
-#   showing line 105 in the "Traceback" which made me realize
-#   we never import the model "ApplicationStatus" but we
-#   actually don't need this model as django is able to 
-#   do "joins" or queries that span multiple/related tables.
-#   so we really just need "StudentSection" model.
 
-#    output = '\n'.join([app.application + " " + app.last_name + " " + app.first_name for app in applications_list])  
-#    template = loader.get_template('sef/cdc_queue.html')
     context = {
             'apps_list': applications_list,
-#            'app_status': application_status,
             }
-#    return HttpResponse("career development admin view\n" + output)
-#    return HttpResponse(template.render(context, request))
+
     return render(request, 'sef/cdc_queue.html', context)
 
 def employerview(request, dept_code):
@@ -426,11 +353,6 @@ def sendnotice(request):
         if ('unique' in error_msg):
             context['error_message'] = "sorry, couldn't save record to database possibly because student has already completed/submitted an application for same department/employer. Double check the student ID and department code. If updating/submitting another application for same department, please contact responsible person in department"
             return render(request, 'sef/notifyform_error.html', context)
-#   is there any point in putting a "return" statement in this "if" clause if we're returning the same thing at the end of the function?
-#   i'm thinking we probably should return from the above "except" clause because we allow the code to run through completion, it may attempt to create an "ApplicationStatus" record.
-        else:
-            pass
-#   and if we're just "passing" in the "else" clause, do we even need an "else" clause?
 
     try:
         application_status_record = ApplicationStatus(application_fk = student_record, app_status = "Notified", dept_code = dept_match, email_used = student_email)
@@ -466,16 +388,12 @@ def sendnotice(request):
     generated_url = 'studentform/' + app_id + '/' + str(dept_code)
     context['url_for_student'] = generated_url
 
-#   i have to remember to also generate url for employer to navigate them to fill out their section just as we did above for student url. but right now i 
-#   have to make certain our employer section is submitted with no issues and that the application_status table gets updated accordingly.
     employer_url = 'employerform/' + app_id + '/' + str(dept_code)
     context['employer_url'] = employer_url
 
     cdc_url = 'cdcform/' + app_id
     context['cdc_url'] = cdc_url
 
-#   studentfolder = attachments(application_fk = app_id)
-#   we kept getting an error saying we have to pass in a 'StudentSection' instance. this is where i have to debate how decoupled i want this web app to make it easier or minimize complexity.
     studentfolder = attachments(application_fk = student_record)
 
     try:
@@ -555,7 +473,7 @@ def submitattachments(request, app_id):
         studentprofile.save()
     except IndexError as i:
         context['error_message'] = "sorry, you might be trying to upload attachments before completing the student section of the SEF form. Please complete student section before uploading any attachments. Thank you"
-#        return redirect(reverse('upload_attachments', kwargs={'app_id': app_id}))
+
         return render(request, 'sef/uploadattachments.html', context)
     except Error as j:
         context['error_message'] = 'sorry, couldn"t update student attachments for some reason'
@@ -602,12 +520,7 @@ def searchApps(request):
 
 
 def convert_sef_to_pdf(app_id):
-    #   when we deploy to production, we'll have to change the url we're passing to call to pdfkit.from_url
-    #   right now, we're just using local urls.
-    #   but i wonder if django has a shortcut to generate the url from our urls.py instead of hardcoding the url
-    #   just like how we call 'url' in django templates, can we do that in views?
-    #   design decision, where should we store the converted/merged pdf files? maybe in a directory django already has access to which is the directory we use to serve/store uploaded attachments.
-    #app_record = ApplicationStatus.objects.get(application_fk_id = app_id)
+
     dir_to_save = settings.MEDIA_ROOT + 'converted_pdfs'
     try:
         os.mkdir(dir_to_save)
