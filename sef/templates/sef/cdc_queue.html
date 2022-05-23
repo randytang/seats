@@ -3,10 +3,6 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="{% static "sef/css/app_list.css" %}">
 	<header>
-		{% comment %}
-		<img id="ric-official" src={% static "/sef/img/hs_logo.png" %}>
-		going to try a colored jpg of ric logo instead of png. 
-		{% endcomment %}
 		<img id="ric-official" src={% static "/sef/img/ric2logo.jpg" %}>
 		<div class="head-logo">
 			<h1>Career Development Center</h1>
@@ -65,10 +61,6 @@
 										<a target="_blank" href="/sef/viewApplication/{{ application.application_fk_id }}">{{ application.application_fk_id }}</a>
 									</td>
 									{% if application.student_completed %}
-										{% comment %}
-											i want to instead, reference a local/saved png of the checkmark png because i want to minimize dependancies to external sites.
-										<td><img src="https://img.icons8.com/color/25/000000/checkmark--v1.png"/></td>
-										{% endcomment %}
 										<td><img src="{% static 'sef/img/checkmark--v1.png' %}"/></td>
 									{% else %}
 										<td></td>
@@ -98,9 +90,6 @@
 									{% else %}
 										<td></td>
 									{% endif %}
-									{% comment %}
-										i have to remember to add a "dept_code" field/attribute to our application_status table from which we'll use to grab/query the department name so we can display in this table data cell. but until then we'll just display an empty <td> element
-									{% endcomment %}
 									<td>
 										<div class='attachment-icon'>
 											<a target='_blank' href="/sef/attachments/{{ application.application_fk_id }}">
@@ -116,22 +105,13 @@
 						</tbody>
 					</table>
 				</div>
-					{% comment %}
-						<li><a href="/sef/viewApplication/{{ application.application }}">{{ application }}</a></li>
-						<li><a href="{% url 'app_view' application.application %}">{{ application }}</a></li>
-					{% endcomment %}
+
 				<form id="selected-apps">
 					{% csrf_token %}
 				</form>
 
 				<div id="form-buttons-container">
 					<button class="form-btns" type="submit" form="selected-apps" formaction="{% url 'delete_apps' %}" formmethod="post">Delete</button>
-					{% comment %}
-
-					<button class="form-btns" type="submit" form="selected-apps" formaction="{% url 'print_apps' %}" formmethod="post">Print</button>
-					
-					{% endcomment %}
-
 					<button id="printBtn" class="form-btns" type="button" form="selected-apps">Print</button>
 
 				</div>
