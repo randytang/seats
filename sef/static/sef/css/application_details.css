@@ -48,9 +48,7 @@ input[type="text"] {
 	font-weight: bold;
 }
 
-/*
- * lol, i think i've improved my understanding of flex with this project. and i think it only took me about 15 minutes to crash review the concept. so "input" elements are set to flex: auto which means it will flex-grow and flex-shrink as needed but its parent container has to be set with "display: flex". if you don't want any other elements within same flex container to grow likewise, then set "flex-shrink" to "0" to stop it from shrinking.
- */
+
 
 label {
 	flex-shrink: 0;
